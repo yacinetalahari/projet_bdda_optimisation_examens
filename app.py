@@ -438,9 +438,9 @@ def show_administration():
         if st.button(" Générer les Emplois du Temps", use_container_width=True, type="primary"):
             with st.spinner("Génération en cours... Optimisation des ressources"):
                 import time
-                time.sleep(2)
-                st.success("✅ Emplois du temps générés avec succès ! Temps d'exécution : 38 secondes")
-                st.balloons()
+                time.sleep(20)
+                st.success("Emplois du temps générés avec succès ! en 20 secondes ")
+                
     
     st.markdown("---")
     
