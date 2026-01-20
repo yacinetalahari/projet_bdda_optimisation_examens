@@ -41,3 +41,4 @@ Ensure Python and PostgreSQL are installed.
 
 ### Student View (No Exams / No Planning)
 ![No Planning](rapport/no_planning.png)
+
