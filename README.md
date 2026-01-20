@@ -1,14 +1,43 @@
-remarque :
-we did update some functionnalities the app is working well now you can generate and consult EDT now
-
 # Exam Scheduler
-1. **Prerequisites**: Ensure Python and PostgreSQL are installed.
-2. **Install Deps**: `pip install -r requirements.txt`
-3. **Setup DB**: Create a database named `exam_scheduler`.
-4. **Import Schema**: Run `psql -U postgres -d exam_scheduler -f creation.sql` then `contrainte.sql`.
-5. **Optimize**: Run `psql -U postgres -d exam_scheduler -f optimization.sql` (Password: `yassinopostgresql`).
-6. **Gen Data**: Run `python data.py` to populate the database with mock data.
-7. **Run App**: Execute `streamlit run app.py` and open the URL shown.
-8. **Usage**: Go to "Administration" > "Générer" to build the schedule.
-9. **View**: Go to "Consultation" to see individual timetables.
 
+## Prerequisites
+Ensure Python and PostgreSQL are installed.
+
+## Installation & Setup
+1. **Install Deps**: `pip install -r requirements.txt`
+2. **Setup DB**: Create a database named `exam_scheduler`.
+3. **Import Schema**: Run `psql -U postgres -d exam_scheduler -f creation.sql` then `contrainte.sql`.
+4. **Optimize**: Run `psql -U postgres -d exam_scheduler -f optimization.sql` (Password: `yassinopostgresql`).
+5. **Gen Data**: Run `python data.py` to populate the database with mock data.
+6. **Run App**: Execute `streamlit run app.py` and open the URL shown.
+
+## Usage
+- **Usage**: Go to "Administration" > "Générer" to build the schedule.
+- **View**: Go to "Consultation" to see individual timetables.
+
+## Deployment (Cloud)
+- **Deploy**:
+    - Push to GitHub.
+    - Connect to Streamlit Cloud.
+    - Set Secrets in Streamlit Settings for your Cloud DB (Neon/Supabase).
+    - To fill Cloud DB from local PC (optional helper):
+      ```powershell
+      python deploy_to_cloud.py
+      ```
+
+## Screenshots
+
+### Data Generation
+![Data Generation](rapport/generation_data.png)
+
+### Exam Generation Process
+![Exam Generation](rapport/generation_examens.png)
+
+### Exam List
+![Exam List](rapport/liste_examens.png)
+
+### Planning (After Generation)
+![Planning](rapport/planning.png)
+
+### Student View (No Exams / No Planning)
+![No Planning](rapport/no_planning.png)
