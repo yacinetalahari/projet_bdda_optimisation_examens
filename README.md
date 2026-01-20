@@ -1,6 +1,6 @@
-<<<<<<< HEAD
-README will be added later 
-=======
+remarque :
+we did update some functionnalities the app is working well now you can generate and consult EDT now
+
 # Exam Scheduler
 1. **Prerequisites**: Ensure Python and PostgreSQL are installed.
 2. **Install Deps**: `pip install -r requirements.txt`
@@ -11,4 +11,4 @@ README will be added later
 7. **Run App**: Execute `streamlit run app.py` and open the URL shown.
 8. **Usage**: Go to "Administration" > "Générer" to build the schedule.
 9. **View**: Go to "Consultation" to see individual timetables.
->>>>>>> 617c0f47 (fonctionnement updated)
+
