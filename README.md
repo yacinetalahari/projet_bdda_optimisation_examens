@@ -1,5 +1,6 @@
 # Exam Scheduler
 
+<<<<<<< HEAD
 ## Prerequisites
 Ensure Python and PostgreSQL are installed.
 
@@ -42,3 +43,20 @@ Ensure Python and PostgreSQL are installed.
 ### Student View (No Exams / No Planning)
 ![No Planning](rapport/no_planning.png)
 
+=======
+Prerequisites: Ensure Python and PostgreSQL are installed.
+Install Deps: pip install -r requirements.txt
+Setup DB: Create a database named exam_scheduler.
+Import Schema: Run psql -U postgres -d exam_scheduler -f creation.sql then contrainte.sql.
+Optimize: Run psql -U postgres -d exam_scheduler -f optimization.sql (Password: yassinopostgresql).
+Gen Data: Run python data.py to populate the database with mock data.
+Run App: Execute streamlit run app.py and open the URL shown.
+Usage: Go to "Administration" > "Générer" to build the schedule.
+View: Go to "Consultation" to see individual timetables.
+
+![Planning](rapport/planning.png)
+![No Planning](rapport/no_planning.png)
+![Data Generation](rapport/generation_data.png)
+![Exam Generation](rapport/generation_examens.png)
+![Exam List](rapport/liste_examens.png)
+>>>>>>> 19de5d26 (update pictures)

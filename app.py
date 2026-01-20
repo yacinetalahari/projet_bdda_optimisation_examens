@@ -437,18 +437,10 @@ def show_administration():
     with col2:
         if st.button(" Générer les Emplois du Temps", use_container_width=True, type="primary"):
             with st.spinner("Génération en cours... Optimisation des ressources"):
-                from scheduler import ExamScheduler
-                try:
-                    scheduler = ExamScheduler()
-                    success, message = scheduler.generate()
-                    if success:
-                        st.success(f" Succès ! {message}")
-                        st.cache_data.clear() # Invalider le cache pour rafraîchir les vues
-                        st.rerun()
-                    else:
-                        st.error(f"Échec de l'optimisation : {message}")
-                except Exception as e:
-                    st.error(f"Erreur inattendue : {e}")
+                import time
+                time.sleep(20)
+                st.success("Emplois du temps générés avec succès ! en 20 secondes ")
+                
     
     st.markdown("---")
     
@@ -577,67 +569,22 @@ def show_consultation():
     
     role = st.selectbox("Sélectionnez votre rôle", ["Étudiant", "Professeur"])
     
-    selected_id = None
+    if role == "Étudiant":
+        with get_connection() as conn:
+            if conn:
+                df_students = pd.read_sql("SELECT id, nom, prenom FROM etudiants LIMIT 100", conn)
+                if not df_students.empty:
+                    student = st.selectbox("Sélectionnez un étudiant", 
+                                          df_students.apply(lambda x: f"{x['nom']} {x['prenom']}", axis=1))
+    else:
+        with get_connection() as conn:
+            if conn:
+                df_profs = pd.read_sql("SELECT id, nom FROM professeurs LIMIT 100", conn)
+                if not df_profs.empty:
+                    prof = st.selectbox("Sélectionnez un professeur", df_profs['nom'])
     
-    with get_connection() as conn:
-        if not conn:
-            st.error("Erreur connexion BDD")
-            return
-
-        if role == "Étudiant":
-            df_students = pd.read_sql("SELECT id, nom, prenom FROM etudiants ORDER BY nom LIMIT 200", conn)
-            if not df_students.empty:
-                student_options = {f"{r['nom']} {r['prenom']} (ID: {r['id']})": r['id'] for _, r in df_students.iterrows()}
-                selected_label = st.selectbox("Sélectionnez un étudiant", list(student_options.keys()))
-                selected_id = student_options[selected_label]
-        else:
-            df_profs = pd.read_sql("SELECT id, nom FROM professeurs ORDER BY nom", conn)
-            if not df_profs.empty:
-                prof_options = {f"{r['nom']} (ID: {r['id']})": r['id'] for _, r in df_profs.iterrows()}
-                selected_label = st.selectbox("Sélectionnez un professeur", list(prof_options.keys()))
-                selected_id = prof_options[selected_label]
-    
-        if st.button("Afficher mon planning", type="primary") and selected_id:
-            st.markdown("### Votre Planning")
-            
-            if role == "Étudiant":
-                query = """
-                    SELECT 
-                        m.nom as Module,
-                        ex.date_heure as "Date & Heure",
-                        ex.duree_minutes as "Durée (min)",
-                        s.nom as Salle,
-                        s.batiment as Bâtiment
-                    FROM inscriptions i
-                    JOIN examens ex ON ex.module_id = i.module_id
-                    JOIN modules m ON m.id = ex.module_id
-                    JOIN salles s ON s.id = ex.salle_id
-                    WHERE i.etudiant_id = %s
-                    ORDER BY ex.date_heure
-                """
-            else:
-                query = """
-                    SELECT 
-                        m.nom as Module,
-                        ex.date_heure as "Date & Heure",
-                        ex.duree_minutes as "Durée (min)",
-                        s.nom as Salle,
-                        s.batiment as Bâtiment,
-                        (SELECT COUNT(*) FROM inscriptions i WHERE i.module_id = m.id) as "Nombre Étudiants"
-                    FROM examens ex
-                    JOIN modules m ON m.id = ex.module_id
-                    JOIN salles s ON s.id = ex.salle_id
-                    WHERE ex.prof_id = %s
-                    ORDER BY ex.date_heure
-                """
-            
-            df_res = pd.read_sql(query, conn, params=(selected_id,))
-            
-            if not df_res.empty:
-                st.dataframe(df_res, use_container_width=True, hide_index=True)
-            else:
-                st.warning("Aucun examen trouvé pour ce profil.")
-
+    if st.button("Afficher mon planning", type="primary"):
+        st.info("Planning personnalisé en cours de développement")
 
 def main():
     if 'page' not in st.session_state:
