@@ -1,6 +1,4 @@
-# Exam Scheduler
 
-<<<<<<< HEAD
 ## Prerequisites
 Ensure Python and PostgreSQL are installed.
 
@@ -59,4 +57,5 @@ View: Go to "Consultation" to see individual timetables.
 ![Data Generation](rapport/generation_data.png)
 ![Exam Generation](rapport/generation_examens.png)
 ![Exam List](rapport/liste_examens.png)
+
 >>>>>>> 19de5d26 (update pictures)
